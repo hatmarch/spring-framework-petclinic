@@ -1,0 +1,20 @@
+{
+	"name": "Spring Petclinic",
+	"dockerFile": "Dockerfile",
+	"runArgs": [
+		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
+		"-e", "AWS_PROFILE=redhat"
+		//"AWS_PROFILE=${env:AWS_PROFILE}"
+	],
+	"extensions": [
+		"vscjava.vscode-java-pack",
+		"redhat.vscode-xml",
+		"joaompinto.asciidoctor-vscode",
+		// REST CLIENT for querying elastic search
+		"humao.rest-client"
+	],
+	"settings":{
+		"java.home": "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/jre",
+		"terminal.integrated.shell.linux": "/bin/bash"
+	}
+}
