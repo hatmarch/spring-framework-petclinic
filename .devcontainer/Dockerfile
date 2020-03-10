@@ -1,4 +1,5 @@
-FROM quay.io/mhildenb/jboss-webserver31-tomcat8-openshift:latest
+# FROM quay.io/mhildenb/jboss-webserver31-tomcat8-openshift:latest
+FROM quay.io/mhildenb/jboss-webserver31-tomcat8-openshift-base:1.0
 
 # # NOTE: If you need to run yum to install anything, you'll need to register the RHEL container using docker BUILDKIT to pass secrets
 # # If this is not supported by VSCode Remote, then you'll need to create a new base image outside of vscode / .devcontainer and make that image
@@ -22,4 +23,4 @@ USER root
 #     unzip awscliv2.zip && ./aws/install && rm awscliv2.zip && rm -rf ./aws \
 #     # && ln -s /usr/local/bin/aws2 /usr/local/bin/aws
 
-# USER jboss
+USER jboss
