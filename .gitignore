@@ -8,6 +8,9 @@ bin/
 .idea
 *.iml
 
+# VSCode
+.vscode/
+
 # mac
 .DS_Store
 
