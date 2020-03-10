@@ -8,6 +8,9 @@ bin/
 .idea
 *.iml
 
+# mac
+.DS_Store
+
 # Maven
 target/
 
