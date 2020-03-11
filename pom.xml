@@ -438,7 +438,7 @@
                 </executions>
                 <configuration>
                     <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-                    <cssDestinationFolder>${project.build.directory}/petclinic/resources/css</cssDestinationFolder>
+                    <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/resources/css</cssDestinationFolder>
                     <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
                     <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
                     <contextFolder>${basedir}/src/main/webapp/resources/less</contextFolder>
@@ -518,7 +518,7 @@
                 <jpa.database>MYSQL</jpa.database>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url>jdbc:mysql://jws-app-mysql:3306/petclinic?useUnicode=true</jdbc.url>
-                <jdbc.username>root</jdbc.username>
+                <jdbc.username>petclinic</jdbc.username>
                 <jdbc.password>petclinic</jdbc.password>
             </properties>
             <dependencies>
@@ -537,7 +537,7 @@
                 <jpa.database>MYSQL</jpa.database>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url>jdbc:mysql://localhost:3306/petclinic?useUnicode=true</jdbc.url>
-                <jdbc.username>root</jdbc.username>
+                <jdbc.username>petclinic</jdbc.username>
                 <jdbc.password>petclinic</jdbc.password>
             </properties>
             <dependencies>
