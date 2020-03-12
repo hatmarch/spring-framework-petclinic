@@ -1,7 +1,9 @@
 # syntax = docker/dockerfile:1.0-experimental
 
+#
 # This is the base dockerfile to be used with the BUILDKIT to build the 
 # image that the .devcontainer docker image is based on
+# 
 FROM quay.io/mhildenb/jboss-webserver31-tomcat8-openshift:latest
 
 USER root
