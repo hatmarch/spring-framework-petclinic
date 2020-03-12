@@ -3,6 +3,7 @@
 	"dockerFile": "Dockerfile",
 	"runArgs": [
 		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
+		"-v", "${env:HOME}/.kube:/home/jboss/.kube",
 		// When opened as a submodule, the .git file references the 
 		// .git directory in the (relative) directory above (at least how)
 		// the repo is setup now).  This command allows us to mount the .git 
