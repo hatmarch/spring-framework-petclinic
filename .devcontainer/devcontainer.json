@@ -2,6 +2,7 @@
 	"name": "Spring Petclinic",
 	"dockerFile": "Dockerfile",
 	"runArgs": [
+		// pull in local aws creds
 		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
 		// Allow piggy-backing on any local credentials
 		"-v", "${env:HOME}/.kube:/home/jboss/.kube",
