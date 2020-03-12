@@ -3,6 +3,13 @@
 	"dockerFile": "Dockerfile",
 	"runArgs": [
 		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
+		// When opened as a submodule, the .git file references the 
+		// .git directory in the (relative) directory above (at least how)
+		// the repo is setup now).  This command allows us to mount the .git 
+		// directory in the same relative location so we can checkin 
+		// changes to the submodule repo from the devcontainer.
+		// NOTE: If this is run from a non-submodule the .git mount will
+		// not point to anything and will be ignored.
 		"-v", "${localWorkspaceFolder}/../.git:/workspaces/.git",
 		"-e", "AWS_PROFILE=redhat"
 		//"AWS_PROFILE=${env:AWS_PROFILE}"
