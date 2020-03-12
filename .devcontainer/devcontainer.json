@@ -3,6 +3,7 @@
 	"dockerFile": "Dockerfile",
 	"runArgs": [
 		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
+		"-v", "${localWorkspaceFolder}/../.git:/workspaces/.git",
 		"-e", "AWS_PROFILE=redhat"
 		//"AWS_PROFILE=${env:AWS_PROFILE}"
 	],
