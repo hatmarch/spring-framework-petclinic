@@ -537,7 +537,7 @@
                 <jpa.database>MYSQL</jpa.database>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url>jdbc:mysql://docker.for.mac.localhost:3306/?useUnicode=true</jdbc.url>
-                <jdbc.username>pc</jdbc.username>
+                <jdbc.username>root</jdbc.username>
                 <jdbc.password>petclinic</jdbc.password>
             </properties>
             <dependencies>
