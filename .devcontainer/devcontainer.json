@@ -28,6 +28,7 @@
 	],
 	"settings":{
 		"java.home": "/usr/lib/jvm/java-1.8.0",
-		"terminal.integrated.shell.linux": "/bin/zsh"
+		"terminal.integrated.shell.linux": "/bin/zsh",
+		"tomcat.workspace": "/opt/webserver"
 	}
 }
