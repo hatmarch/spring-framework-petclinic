@@ -5,10 +5,13 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn package -DskipTests -Pcodedeploy
+      # this is per this advice here: https://docs.aws.amazon.com/codepipeline/latest/userguide/troubleshooting.html#troubleshooting-aeb2
+      - mv target/ROOT.war ./
   # post_build:
   #   commands:
   #     - echo Build completed on `date`
   #     - mvn package
 artifacts:
   files:
-    - target/ROOT.war
+    - ROOT/**/*
+  discard-paths: yes
