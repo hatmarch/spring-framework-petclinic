@@ -6,6 +6,8 @@
 		"-v", "${env:HOME}/.aws:/home/jboss/.aws",
 		// Allow piggy-backing on any local credentials
 		"-v", "${env:HOME}/.kube:/home/jboss/.kube",
+		// pull in ssh keys from host
+		"-v", "${env:HOME}/.ssh:/home/jboss/.ssh"
 		// When opened as a submodule, the .git file references the 
 		// .git directory in the (relative) directory above (at least how)
 		// the repo is setup now).  This command allows us to mount the .git 
