@@ -4,7 +4,7 @@ phases:
   build:
     commands:
       - echo Build and unit tests started on `date`
-      - mvn package surefire:test --PHSQLDB
+      - mvn package surefire:test -PHSQLDB
   # post_build:
   #   commands:
   #     - echo Build completed on `date`
