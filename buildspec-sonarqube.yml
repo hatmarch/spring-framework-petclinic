@@ -1,0 +1,69 @@
+# From this post: https://stackoverflow.com/questions/59400782/integrating-sonarqube-within-aws-codepipeline-connection-refused
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: openjdk11
+    commands:
+      ##############################################################################################
+      ##### "cd / && ls" returns: [bin, boot, codebuild, dev, etc, go, home, lib, lib32, lib64,
+      #####                        media, mnt, opt, proc, root, run, sbin, srv, sys, tmp, usr, var]
+      ##### Initial directory where this starts is $CODEBUILD_SRC_DIR
+      ##### That variable contains something like "/codebuild/output/src511423169/src"
+      ##### This folder contains the whole structure of the CodeCommit repository. This means that
+      ##### the actual Java classes are accessed through "cd src" from there, for example.
+      ##############################################################################################
+      # Upgrade AWS CLI to the latest version
+      - pip install --upgrade awscli
+      # Folder organization
+      - preSonarPath="/opt/"
+      - codeAnalysisFolder="Sonar"
+      - sonarPath="$preSonarPath$codeAnalysisFolder"
+      - cd $preSonarPath && mkdir $codeAnalysisFolder
+      # Get SonarQube
+      - cd $sonarPath
+      - sonarQube="sonarqube-8.1.0.31237"
+      - wget https://binaries.sonarsource.com/Distribution/sonarqube/$sonarQube.zip
+      - unzip ./$sonarQube.zip
+      # Set up non-root user to run SonarQube
+      - groupadd sonar
+      - useradd -c "Sonar System User" -d $sonarPath/$sonarQube -g sonar -s /bin/bash sonar
+      - chown -R sonar:sonar $sonarPath/$sonarQube  # recursively changing the folder's ownership
+      # Launch SonarQube server locally
+      - cd ./$sonarQube/bin/linux-x86-64
+      - sed -i 's/#RUN_AS_USER=/RUN_AS_USER=sonar/g' sonar.sh  # enabling user execution of server
+      - sh ./sonar.sh start
+      # Get SonarScanner and add to PATH
+      - sonarScanner="sonar-scanner-cli-4.2.0.1873-linux"
+      - cd $sonarPath
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$sonarScanner.zip
+      - unzip ./$sonarScanner.zip
+      - export PATH=$PATH:$sonarPath/$sonarScanner.zip/bin/ # todo: .zip ?!
+  pre_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR
+# DEBUG
+     - cd $sonarPath/$sonarQube/logs
+     - cat access.log
+     - cat es.log
+     - cat sonar.log
+     - cat web.log
+     - cd $CODEBUILD_SRC_DIR
+# END DEBUG
+      - mvn install sonar:sonar -DskipTests
+  build:
+    commands:
+      - mvn war:exploded
+  post_build:
+    commands:
+      - cp -r .ebextensions/ target/ROOT/
+      - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template-file template-export.yml
+      # Do not remove this statement. This command is required for AWS CodeStar projects.
+      # Update the AWS Partition, AWS Region, account ID and project ID in the project ARN on template-configuration.json file so AWS CloudFormation can tag project resources.
+      - sed -i.bak 's/\$PARTITION\$/'${PARTITION}'/g;s/\$AWS_REGION\$/'${AWS_REGION}'/g;s/\$ACCOUNT_ID\$/'${ACCOUNT_ID}'/g;s/\$PROJECT_ID\$/'${PROJECT_ID}'/g' template-configuration.json
+artifacts:
+  type: zip
+  files:
+    - 'template-export.yml'
+    - 'template-configuration.json'
