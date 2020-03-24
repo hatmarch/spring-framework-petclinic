@@ -43,14 +43,14 @@ phases:
   pre_build:
     commands:
       - cd $CODEBUILD_SRC_DIR
-# DEBUG
-     - cd $sonarPath/$sonarQube/logs
-     - cat access.log
-     - cat es.log
-     - cat sonar.log
-     - cat web.log
-     - cd $CODEBUILD_SRC_DIR
-# END DEBUG
+      # DEBUG
+      - cd $sonarPath/$sonarQube/logs
+      - cat access.log
+      - cat es.log
+      - cat sonar.log
+      - cat web.log
+      - cd $CODEBUILD_SRC_DIR
+      # END DEBUG
       - mvn install sonar:sonar -DskipTests
   build:
     commands:
