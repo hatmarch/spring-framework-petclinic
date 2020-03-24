@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  # install:
+  #   runtime-versions:
+  #     java: corretto11
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package -DskipTests -Pcodedeploy
+      # this is per this advice here: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-elastic-beanstalk.html#sample-elastic-beanstalk-codepipeline
+      - mv target/ROOT.war ROOT.war
+      - ls -lR
+  # post_build:
+  #   commands:
+  #     - echo Build completed on `date`
+  #     - mvn package
+artifacts:
+  files:
+    - ROOT.war
+    - .ebextensions/**/*
+  #base-directory: 'target/ROOT'

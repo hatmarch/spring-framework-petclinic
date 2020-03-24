@@ -1,0 +1,84 @@
+= Instructions for building with OpenShift Pipelines =
+
+== Build Image ==
+
+PetClinic has been deployed successfully with link:https://github.com/jboss-openshift/application-templates/blob/master/webserver/jws31-tomcat8-https-s2i.json[this] application template.  In it there is a `BuildConfig` defined that uses the image `jboss-webserver31-tomcat8-openshift:1.3` in the `openshift` namespace
+
+----
+{
+    "kind": "BuildConfig",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "${APPLICATION_NAME}",
+        "labels": {
+            "application": "${APPLICATION_NAME}"
+        }
+    },
+    "spec": {
+        "source": {
+            "type": "Git",
+            "git": {
+                "uri": "${SOURCE_REPOSITORY_URL}",
+                "ref": "${SOURCE_REPOSITORY_REF}"
+            },
+            "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+            "type": "Source",
+            "sourceStrategy": {
+                "env": [
+                    {
+                        "name": "MAVEN_MIRROR_URL",
+                        "value": "${MAVEN_MIRROR_URL}"
+                    },
+                    {
+                        "name": "ARTIFACT_DIR",
+                        "value": "${ARTIFACT_DIR}"
+                    }
+                ],
+                "forcePull": true,
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                    "name": "jboss-webserver31-tomcat8-openshift:1.3"
+                }
+            }
+        },
+        "output": {
+            "to": {
+                "kind": "ImageStreamTag",
+                "name": "${APPLICATION_NAME}:latest"
+            }
+        },
+        "triggers": [
+            {
+                "type": "GitHub",
+                "github": {
+                    "secret": "${GITHUB_WEBHOOK_SECRET}"
+                }
+            },
+            {
+                "type": "Generic",
+                "generic": {
+                    "secret": "${GENERIC_WEBHOOK_SECRET}"
+                }
+            },
+            {
+                "type": "ImageChange",
+                "imageChange": {}
+            },
+            {
+                "type": "ConfigChange"
+            }
+        ]
+    }
+}
+----
+
+Looks like link:https://github.com/siamaksade/tekton-cd-demo/blob/master/tasks/mvn-task.yaml[this task] can be used to build the application from a git repo.  It takes in a settings.xml from the config map
+
+Approach:
+    Create a pipeline that uses a maven task to build on the `jboss-webserver31-tomcat8-openshift:1.3` in the `openshift` namespace
+
+== Build Command ==
+
