@@ -3,12 +3,14 @@ version: 0.1
 phases:
   build:
     commands:
-      - echo Build started on `date`
-      - mvn surefire:tests -Pcodedeploy
+      - echo Build and unit tests started on `date`
+      - mvn package surefire:test --PHSQLDB
   # post_build:
   #   commands:
   #     - echo Build completed on `date`
   #     - mvn package
-# artifacts:
-#   files:
-#     - target/ROOT.war
+reports: #New
+  SurefireReports: # CodeBuild will create a report group called "SurefireReports".
+    files: #Store all of the files
+      - '**/*'
+    base-directory: 'target/surefire-reports' # Location of the reports 
