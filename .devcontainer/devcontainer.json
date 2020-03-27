@@ -26,7 +26,7 @@
 		// REST CLIENT for querying elastic search
 		"humao.rest-client",
 		"adashen.vscode-tomcat",
-		"summersun.vscode-jetty"
+		//"summersun.vscode-jetty"
 	],
 	"settings":{
 		"java.home": "/usr/lib/jvm/java-1.8.0",
