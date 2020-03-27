@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mvn package -DskipTests -Pcodedeploy
+      - mvn package -DskipTests -Popenshift
       # this is per this advice here: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-elastic-beanstalk.html#sample-elastic-beanstalk-codepipeline
       - mv target/ROOT.war ROOT.war
       - ls -lR
