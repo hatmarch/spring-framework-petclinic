@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: In using this file, it assumes that this will be run in a container with the 
+port 8081 on the host (mac) port-forwarded to some nexus repo in an openshift cluster.
+Use this with maven by using the -s flag -->
+<settings>
+    <servers>
+    <server>
+        <id>nexus</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    </servers>
+    <mirrors>
+    <mirror>
+        <id>nexus</id>
+        <name>nexus</name>
+        <url>http://docker.for.mac.localhost:8081/repository/maven-public/</url>
+        <mirrorOf>*</mirrorOf>
+    </mirror>
+    </mirrors>
+</settings>
