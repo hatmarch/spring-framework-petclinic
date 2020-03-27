@@ -67,7 +67,7 @@ reports:
   SonarReports: # CodeBuild will create a report group called "SonarReport".
     files: #Store all of the files
       - '**/*'
-#    base-directory: 'target/surefire-reports' # Location of the reports 
+    base-directory: "$sonarPath/$sonarQube/logs" # Location of the reports ?
 # artifacts:
 #   type: zip
 #   files:
