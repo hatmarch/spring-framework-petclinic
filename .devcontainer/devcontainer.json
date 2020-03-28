@@ -7,7 +7,7 @@
 		// Allow piggy-backing on any local credentials
 		"-v", "${env:HOME}/.kube:/home/jboss/.kube",
 		// pull in ssh keys from host
-		"-v", "${env:HOME}/.ssh:/home/jboss/.ssh"
+		"-v", "${env:HOME}/.ssh:/home/jboss/.ssh",
 		// When opened as a submodule, the .git file references the 
 		// .git directory in the (relative) directory above (at least how)
 		// the repo is setup now).  This command allows us to mount the .git 
@@ -16,6 +16,8 @@
 		// NOTE: If this is run from a non-submodule the .git mount will
 		// not point to anything and will be ignored.
 		"-v", "${localWorkspaceFolder}/../.git:/workspaces/.git",
+		// mount the maven cache locally
+		"-v", "${localWorkspaceFolder}/../.m2-spring-petclinic/:/home/jboss/.m2",
 		"-e", "AWS_PROFILE=redhat"
 		//"AWS_PROFILE=${env:AWS_PROFILE}"
 	],
