@@ -2,7 +2,7 @@
 
 set -e -u -o pipefail
 
-declare SOURCE_IMAGE="PetClinic"
+declare SOURCE_IMAGE=""
 
 while (($#)); do
     case "$1" in
@@ -20,6 +20,7 @@ done
 
 if [[ -z "$SOURCE_IMAGE" ]]; then
     echo "Must specify source image"
+    exit 1
 fi
 
 declare -r SCRIPT_DIR=$(cd -P $(dirname $0) && pwd)
