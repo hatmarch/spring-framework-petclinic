@@ -517,7 +517,7 @@
                 <db.script>mysql</db.script>
                 <jpa.database>MYSQL</jpa.database>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-                <jdbc.url>jdbc:mysql://jws-app-mysql:3306/?useUnicode=true</jdbc.url>
+                <jdbc.url>jdbc:mysql://petclinic-mysql:3306/?useUnicode=true</jdbc.url>
                 <jdbc.username>pc</jdbc.username>
                 <jdbc.password>petclinic</jdbc.password>
             </properties>
