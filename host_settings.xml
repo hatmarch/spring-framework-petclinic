@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- NOTE: In using this file, it assumes that this will be run in a container with the 
-port 8081 on the container forwarded to the corresponding nexus service on the target cluster.
+port 8081 on the host (mac) port-forwarded to some nexus repo in an openshift cluster.
 Use this with maven by using the -s flag -->
 <settings>
     <profiles>
@@ -10,7 +10,7 @@ Use this with maven by using the -s flag -->
             </activation>
             <id>HSQLDB</id>
             <properties>
-                <nexus-host>localhost:8081</nexus-host>
+                <nexus-host>docker.for.mac.localhost:8081</nexus-host>
             </properties>
         </profile>
     </profiles>
@@ -25,7 +25,7 @@ Use this with maven by using the -s flag -->
     <mirror>
         <id>nexus</id>
         <name>nexus</name>
-        <url>http://localhost:8081/repository/maven-public/</url>
+        <url>http://docker.for.mac.localhost:8081/repository/maven-public/</url>
         <mirrorOf>*</mirrorOf>
     </mirror>
     </mirrors>
