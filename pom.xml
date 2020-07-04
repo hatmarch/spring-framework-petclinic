@@ -53,7 +53,7 @@
 
         <!-- Test -->
         <assertj.version>3.13.2</assertj.version>
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.4</jacoco.version>
         <json-path.version>2.4.0</json-path.version>
         <mockito.version>3.1.0</mockito.version>
         <hamcrest.version>2.1</hamcrest.version>
